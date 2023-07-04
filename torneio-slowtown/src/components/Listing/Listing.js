@@ -26,6 +26,7 @@ function CompetidoresPage() {
 
   console.log("competidores", competidores);
   console.log("referee", referee);
+  
 
   return (
     <div>
