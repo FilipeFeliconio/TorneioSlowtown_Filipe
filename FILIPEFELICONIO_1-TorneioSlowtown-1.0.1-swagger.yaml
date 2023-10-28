@@ -1,0 +1,493 @@
+openapi: 3.0.0
+servers:
+  - description: API Docs for TorneioSlowtown application
+    url: https://app.swaggerhub.com/apis/FILIPEFELICONIO_1/TorneioSlowtown/1.0.0-oas3
+info:
+  description: API
+  version: 1.0.1
+  title: API TorneioSlowtown
+  contact:
+    email: filipe.feliconio@aluno.ifsp.edu.br
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: usuario
+    description: admin user
+  - name: atleta
+    description: tournament athletes
+  - name: luta
+    description: tournament fights
+  - name: juiz
+    description: fight judge
+  - name: etapa
+    description: key step
+paths:
+  /usuario:
+    post:
+      tags:
+        - usuario
+      summary: Cadastra usuario
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/usuario'
+      responses: 
+        '201':
+          description: Usuário cadastrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usuario'
+        '400':
+          description: invalid input object
+  /usuario/{id}:
+    get:
+      tags:
+        - usuario
+      summary: Busca usuário pelo id informado
+      operationId: searchoneuser
+      description: Busca usuário pelo id informado
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Retorna dados do usuário
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usuario'
+        '400':
+          description: bad input parameter
+        '404':
+          description: not found
+    put:
+      tags:
+        - usuario
+      summary: Atualiza dados do usuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/usuario'
+      responses: 
+        '200':
+          description: Dados do usuário atualizados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usuario'
+        '400':
+          description: invalid input object
+        '404':
+          description: not found
+    delete:
+      tags:
+        - usuario
+      summary: Deleta cadastro do usuário do ID informado
+      operationId: deleteUser
+      description: Deleta dados do usuário
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Usuário deletado
+        '404':
+          description: not found
+          
+  /atleta:
+    get:
+      tags:
+        - atleta
+      summary: Busca todas os atletas
+      description: Lista todos os atletas cadastrados
+      responses:
+        '200':
+          description: Lista de atletas cadastrados do Torneio
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/atleta'
+        '400':
+          description: bad input parameter
+  /atleta:
+    post:
+      tags:
+        - atleta
+      summary: Cadastra atleta para o torneio
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/atleta'
+      responses: 
+        '201':
+          description: Cadastro de atleta realizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/atleta'
+        '400':
+          description: invalid input object
+    delete:
+      tags:
+        - atleta
+      summary: Deleta cadastro do atleta do ID informado
+      operationId: deleteAtleta
+      description: Deleta dados do atleta
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Usuário deletado
+        '404':
+          description: not found      
+  /atleta/{id}:
+    get:
+      tags:
+        - atleta
+      summary: Busca dados de atleta pelo id informado
+      description: Busca dados de atleta pelo id informado
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Retorna dados do atleta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/atleta'
+        '400':
+          description: bad input parameter
+        '404':
+          description: not found
+  /atleta/categoria/Leve:
+    get:
+      tags:
+        - atleta
+      summary: Busca dados de atleta pela categoria
+      description: Busca dados de atleta pela categoria informada
+      responses:
+        '200':
+          description: Retorna dados do atleta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/atleta'
+        '400':
+          description: bad input parameter
+        '404':
+          description: not found        
+
+  /luta:
+    get:
+      summary: Busca todas as lutas
+      tags:
+        - luta
+      description: busca todas as lutas
+      responses:
+        '200':
+          description: Retorna a lista das lutas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/luta'
+    post:
+      summary: Cadadastra usuário ao sistema
+      tags:
+        - users
+      description: Cadastrar usuário
+      responses:
+        '201':
+          description: Usuário cadastrado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: Usuário
+        
+        /juiz:
+    get:
+      summary: Busca todas as juízes
+      tags:
+        - juiz
+      description: busca todas os juízes
+      responses:
+        '200':
+          description: Retorna a lista das lutas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/juiz'
+    post:
+      summary: Cadadastra um juiz ao sistema
+      tags:
+        - users
+      description: Cadastrar Juiz
+      responses:
+        '201':
+          description: Juiz cadastrado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/juiz'
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/juiz'
+        description: Usuário
+        
+  /users/{user_id}:
+    get:
+      summary: Busca o usuário do ID informado
+      tags:
+        - users
+      description: Busca usuário
+      parameters: 
+        - in: path
+          name: user_id
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Retorna usuário
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '404':
+          description: Usuário não encontrado
+    delete:
+      summary: Remove o usuário do ID informado
+      tags:
+        - users
+      description: Deleta o usuário
+      parameters: 
+        - in: path
+          name: user_id
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Usuário excluído com sucesso
+          content:
+            application/text:
+              example: Usuário excluído com sucesso
+        '404':
+          description: Usuário não encontrado
+    put:
+      summary: Atualiza o usuário do ID informado
+      tags:
+        - users
+      description: Atualiza o usuário
+      parameters: 
+        - in: path
+          name: user_id
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuário atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: invalid input, object invalid
+        '404':
+          description: Usuário não encontrado
+
+
+
+
+
+components:
+  schemas:
+    usuario:
+      type: object
+      required:
+        - id
+        - nome
+        - sobrenome
+        - email
+        - senha
+        - is_admin
+        - created_at
+      properties:
+        id:
+          type: number
+          format: uuid
+          example: 1
+        nome:
+          type: string
+          example: Filipe
+        sobrenome:
+          type: string
+          example: Feliconio
+        email:
+          type: string
+          example: filipefeliconio@gmail.com
+        senha:
+          type: string
+          example: 0123456
+        is_admin:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-09-07T01:12:25.001Z'
+
+    atleta:
+      type: object
+      required:
+        - id
+        - cpf
+        - peso
+        - patrocinador
+        - categoria
+        - user_id
+      properties:
+        id:
+          type: number
+          format: uuid
+          example: 1
+        cpf:
+          type: number
+          example: 1125584531
+        peso:
+          type: string
+          example: 75kg
+        patrocinador:
+          type: string
+          example: Monster
+        categoria:
+          type: string
+          example: peso medio
+        user_id:
+          type: number
+          format: uuid
+          example: 1
+    
+    luta:
+      type: object
+      required:
+        - id
+        - data
+        - atleta_a
+        - atleta_b
+        - juiz_id
+        - etapa_id
+      properties:
+        id:
+          type: number
+          format: uuid
+          example: 1
+        data:
+          type: string
+          format: date-time
+          example: '2022-09-07T01:12:25.001Z'
+        atleta_a:
+          type: string
+          example: Miguel
+        atleta_b:
+          type: string
+          example: Gustavo
+        juiz_id:
+          type: number
+          format: uuid
+          example: 1
+        etapa_id:
+          type: number
+          format: uuid
+          example: 1
+    
+    juiz:
+      type: object
+      required:
+        - id
+        - nome
+      properties:
+        id:
+          type: number
+          format: uuid
+          example: 1
+        nome:
+          type: string
+          example: Marcos
+          
+    etapa:
+      type: object
+      required:
+        - id
+        - nome
+      properties:
+        id:
+          type: number
+          format: uuid
+          example: 1
+        nome:
+          type: string
+          example: Quartas
