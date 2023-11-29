@@ -8,7 +8,6 @@ function CompetidoresPage() {
   const promise2 = Promise.resolve(refereesRaw);
   const [referee, setReferee] = useState([]);
 
-
   const competidoresRaw = listCompetitors();
   const promise1 = Promise.resolve(competidoresRaw);
   const [competidores, setCompetidores] = useState([]);
@@ -26,7 +25,6 @@ function CompetidoresPage() {
 
   console.log("competidores", competidores);
   console.log("referee", referee);
-  
 
   return (
     <div>

@@ -6,7 +6,6 @@ async function login(email, senha) {
       email,
       senha,
     });
-
     
     // Verifica se a resposta tem um token de autenticação
     if (response.data && response.data.token) {
